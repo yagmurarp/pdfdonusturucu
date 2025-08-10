@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>pdfdonusturucu</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>📄↔️ pdfdonusturucu</h1>
+    <p>Mac ve Windows'ta çalışır. Aşağıdan yapmak istediğin dönüşümü seçip dosyayı yükle.</p>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %}<div>{{ m }}</div>{% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="grid">
+      <form method="post" action="/convert" enctype="multipart/form-data">
+        <h2>PDF → Word (DOCX)</h2>
+        <input type="file" name="file" accept=".pdf" required />
+        <input type="hidden" name="action" value="pdf_to_word" />
+        <button type="submit">Dönüştür</button>
+      </form>
+
+      <form method="post" action="/convert" enctype="multipart/form-data">
+        <h2>Word (DOCX) → PDF</h2>
+        <input type="file" name="file" accept=".docx" required />
+        <input type="hidden" name="action" value="word_to_pdf" />
+        <button type="submit">Dönüştür</button>
+      </form>
+
+      <form method="post" action="/convert" enctype="multipart/form-data">
+        <h2>PDF → Excel (XLSX)</h2>
+        <input type="file" name="file" accept=".pdf" required />
+        <input type="hidden" name="action" value="pdf_to_excel" />
+        <button type="submit">Dönüştür</button>
+      </form>
+
+      <form method="post" action="/convert" enctype="multipart/form-data">
+        <h2>Excel (XLSX) → PDF</h2>
+        <input type="file" name="file" accept=".xlsx" required />
+        <input type="hidden" name="action" value="excel_to_pdf" />
+        <button type="submit">Dönüştür</button>
+      </form>
+
+      <form method="post" action="/convert" enctype="multipart/form-data">
+        <h2>Word (DOCX) → Excel (XLSX)</h2>
+        <input type="file" name="file" accept=".docx" required />
+        <input type="hidden" name="action" value="word_to_excel" />
+        <button type="submit">Dönüştür</button>
+      </form>
+
+      <form method="post" action="/convert" enctype="multipart/form-data">
+        <h2>Excel (XLSX) → Word (DOCX)</h2>
+        <input type="file" name="file" accept=".xlsx" required />
+        <input type="hidden" name="action" value="excel_to_word" />
+        <button type="submit">Dönüştür</button>
+      </form>
+    </div>
+
+    <div class="note">
+      <h3>Sistem Gereksinimleri</h3>
+      <ul>
+        <li><strong>LibreOffice</strong> (Word/Excel → PDF için)</li>
+        <li><strong>Ghostscript</strong> (PDF → Excel tablo çıkarımı için)</li>
+      </ul>
+      <p>Bulunan LibreOffice: <code>{{ soffice_path or "bulunamadı (yüklemen gerek)" }}</code></p>
+    </div>
+  </div>
+</body>
+</html>
